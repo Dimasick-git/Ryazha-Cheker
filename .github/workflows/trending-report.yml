@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Validate secrets
         run: |
@@ -34,13 +34,13 @@ jobs:
           GITHUB_CHECK_TOKEN: ${{ secrets.G_TOKEN }}
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: '3.11'
           cache: 'pip'
 
       - name: Restore monitor state
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             last_check.json
@@ -49,7 +49,7 @@ jobs:
           restore-keys: monitor-state-
 
       - name: Restore AI summary cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ai_summary_cache.json
           key: ai-summary-cache-${{ github.ref_name }}
@@ -89,7 +89,7 @@ jobs:
 
       - name: Save monitor state
         if: always()
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v6
         with:
           path: |
             last_check.json
@@ -98,7 +98,7 @@ jobs:
 
       - name: Save AI summary cache
         if: always()
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v6
         with:
           path: ai_summary_cache.json
           key: ai-summary-cache-${{ github.ref_name }}-${{ github.run_id }}
